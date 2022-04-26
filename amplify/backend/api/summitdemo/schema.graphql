@@ -1,0 +1,13 @@
+type WanderlustList @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  Season: String
+  Destinations: [Destination] @hasMany(indexName: "byWanderlustList", fields: ["id"])
+}
+
+type Destination @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String!
+  description: String
+  date: AWSDate
+  wanderlustlistID: ID! @index(name: "byWanderlustList")
+}
